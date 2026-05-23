@@ -5,14 +5,16 @@
 }
 
 .ag-container h2 {
-  font-size: 1.75rem;
-  font-weight: 700;
+  font-size: 1.9rem;
+  font-weight: 900;
   margin-bottom: 0.25rem;
+  letter-spacing: -0.03em;
 }
 
 .ag-subtitulo {
   color: var(--texto-secundario);
   margin-bottom: 2rem;
+  font-weight: 600;
 }
 
 .ag-form {
@@ -21,25 +23,33 @@
   gap: 2rem;
 }
 
+.ag-secao {
+  background-color: var(--bg-card);
+  border: 2px solid var(--cinza-200);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  box-shadow: var(--sombra);
+}
+
 .ag-secao h3 {
-  font-size: 1rem;
-  font-weight: 600;
-  margin-bottom: 1rem;
-  color: var(--texto-secundario);
+  font-size: 0.85rem;
+  font-weight: 800;
+  margin-bottom: 1.25rem;
+  color: var(--secundaria);
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.08em;
 }
 
 .ag-brinquedos-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
   gap: 1rem;
 }
 
 .ag-brinquedo-card {
-  background-color: var(--bg-card);
+  background-color: var(--bg-secundario);
   border: 2px solid var(--cinza-200);
-  border-radius: 12px;
+  border-radius: var(--radius-sm);
   overflow: hidden;
   cursor: pointer;
   position: relative;
@@ -47,18 +57,19 @@
 }
 
 .ag-brinquedo-card:hover {
-  border-color: var(--azul-principal);
+  border-color: var(--primaria);
+  transform: translateY(-2px);
 }
 
 .ag-brinquedo-card.selecionado {
-  border-color: var(--azul-principal);
-  background-color: var(--bg-secundario);
+  border-color: var(--secundaria);
+  box-shadow: 0 0 0 3px rgba(155, 93, 229, 0.2);
 }
 
 .ag-brinquedo-card img,
 .ag-placeholder {
   width: 100%;
-  height: 130px;
+  height: 120px;
   object-fit: cover;
 }
 
@@ -67,62 +78,67 @@
   align-items: center;
   justify-content: center;
   font-size: 2.5rem;
-  background-color: var(--bg-secundario);
+  background: linear-gradient(135deg, var(--cinza-200), var(--bg-secundario));
 }
 
 .ag-brinquedo-info {
-  padding: 0.75rem;
+  padding: 0.65rem 0.75rem;
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  flex-direction: column;
+  gap: 0.15rem;
 }
 
 .ag-brinquedo-info strong {
-  font-size: 0.9rem;
+  font-size: 0.85rem;
+  font-weight: 800;
+  color: var(--texto-principal);
 }
 
 .ag-brinquedo-info span {
-  font-size: 0.9rem;
-  color: var(--azul-principal);
-  font-weight: 600;
+  font-size: 0.85rem;
+  color: var(--primaria);
+  font-weight: 800;
 }
 
 .ag-quantidade {
-  padding: 0 0.75rem 0.75rem;
+  padding: 0 0.75rem 0.65rem;
   display: flex;
   align-items: center;
   gap: 0.5rem;
 }
 
 .ag-quantidade label {
-  font-size: 0.8rem;
+  font-size: 0.78rem;
   color: var(--texto-secundario);
+  font-weight: 700;
 }
 
 .ag-quantidade input {
-  width: 60px;
+  width: 58px;
   padding: 0.25rem 0.5rem;
-  border: 1px solid var(--cinza-200);
-  border-radius: 6px;
-  background-color: var(--bg-principal);
+  border: 2px solid var(--cinza-200);
+  border-radius: 8px;
+  background-color: var(--bg-card);
   color: var(--texto-principal);
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Nunito', sans-serif;
+  font-weight: 700;
 }
 
 .ag-check {
   position: absolute;
   top: 8px;
   right: 8px;
-  background-color: var(--azul-principal);
+  background: linear-gradient(135deg, var(--secundaria), var(--rosa));
   color: #fff;
-  width: 24px;
-  height: 24px;
+  width: 26px;
+  height: 26px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 0.75rem;
-  font-weight: 700;
+  font-size: 0.8rem;
+  font-weight: 900;
+  box-shadow: 0 2px 8px rgba(155, 93, 229, 0.4);
 }
 
 .ag-campos {
@@ -131,22 +147,20 @@
   gap: 1rem;
 }
 
-.campo-full {
-  grid-column: 1 / -1;
-}
-
 .ag-resumo {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: var(--bg-card);
-  border: 1px solid var(--cinza-200);
-  border-radius: 10px;
-  padding: 1rem 1.5rem;
-  font-size: 1.1rem;
+  background: linear-gradient(135deg, var(--secundaria), #7B2FBE);
+  border-radius: var(--radius-sm);
+  padding: 1.1rem 1.5rem;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 700;
 }
 
 .ag-resumo strong {
-  color: var(--azul-principal);
-  font-size: 1.3rem;
+  font-size: 1.4rem;
+  font-weight: 900;
+  color: var(--amarelo);
 }

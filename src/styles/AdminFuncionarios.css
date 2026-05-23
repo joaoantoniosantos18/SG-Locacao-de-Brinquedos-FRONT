@@ -2,12 +2,18 @@
 
 .af-form {
   background-color: var(--bg-card);
-  border: 1px solid var(--cinza-200);
-  border-radius: 12px;
+  border: 2px solid var(--cinza-200);
+  border-radius: var(--radius);
   padding: 1.5rem;
+  box-shadow: var(--sombra);
 }
 
-.af-form h3 { font-size: 1rem; font-weight: 600; margin-bottom: 1rem; }
+.af-form h3 {
+  font-size: 1rem;
+  font-weight: 800;
+  margin-bottom: 1rem;
+  color: var(--secundaria);
+}
 
 .af-form-grid {
   display: grid;
@@ -22,10 +28,14 @@
   justify-content: space-between;
   align-items: center;
   background-color: var(--bg-card);
-  border: 1px solid var(--cinza-200);
-  border-radius: 12px;
+  border: 2px solid var(--cinza-200);
+  border-radius: var(--radius);
   padding: 1rem 1.25rem;
+  box-shadow: var(--sombra);
+  transition: border-color 0.2s;
 }
+
+.af-item:hover { border-color: var(--secundaria); }
 
 .af-item-info {
   display: flex;
@@ -34,7 +44,7 @@
   font-size: 0.9rem;
 }
 
-.af-item-info strong { font-weight: 600; }
-.af-item-info span { color: var(--texto-secundario); }
+.af-item-info strong { font-weight: 800; }
+.af-item-info span   { color: var(--texto-secundario); font-weight: 600; }
 
-.af-item-acoes { display: flex; align-items: center; gap: 0.75rem; }    
+.af-item-acoes { display: flex; align-items: center; gap: 0.75rem; }

@@ -4,25 +4,26 @@
   align-items: center;
   justify-content: center;
   padding: 1rem;
-  background-color: var(--bg-secundario);
+  background: linear-gradient(160deg, #FFF3E0 0%, #EDE0FF 100%);
 }
 
 .auth-card {
   background-color: var(--bg-card);
-  border: 1px solid var(--cinza-200);
-  border-radius: 12px;
+  border-radius: 28px;
   padding: 2.5rem;
   width: 100%;
   max-width: 420px;
-  box-shadow: var(--sombra);
+  box-shadow: 0 20px 60px rgba(155, 93, 229, 0.18);
+  border: 2px solid var(--cinza-200);
 }
 
 .auth-titulo {
-  font-size: 1.8rem;
-  font-weight: 700;
-  color: var(--azul-principal);
+  font-size: 2rem;
+  font-weight: 900;
+  color: var(--secundaria);
   text-align: center;
   margin-bottom: 0.25rem;
+  letter-spacing: -0.03em;
 }
 
 .auth-subtitulo {
@@ -30,6 +31,7 @@
   color: var(--texto-secundario);
   margin-bottom: 2rem;
   font-size: 0.95rem;
+  font-weight: 600;
 }
 
 .auth-form {
@@ -38,73 +40,17 @@
   gap: 1rem;
 }
 
-.campo {
-  display: flex;
-  flex-direction: column;
-  gap: 0.4rem;
-}
-
-.campo label {
-  font-size: 0.875rem;
-  font-weight: 500;
-  color: var(--texto-principal);
-}
-
-.campo input {
-  padding: 0.65rem 0.9rem;
-  border: 1px solid var(--cinza-200);
-  border-radius: 8px;
-  background-color: var(--bg-secundario);
-  color: var(--texto-principal);
-  font-family: 'Poppins', sans-serif;
-  font-size: 0.95rem;
-  outline: none;
-  transition: border-color 0.2s;
-}
-
-.campo input:focus {
-  border-color: var(--azul-principal);
-}
-
-.btn-primary {
-  margin-top: 0.5rem;
-  padding: 0.75rem;
-  background-color: var(--azul-principal);
-  color: #fff;
-  border: none;
-  border-radius: 8px;
-  font-size: 1rem;
-  font-weight: 600;
-  font-family: 'Poppins', sans-serif;
-  cursor: pointer;
-  transition: opacity 0.2s;
-}
-
-.btn-primary:hover {
-  opacity: 0.9;
-}
-
-.btn-primary:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
-}
-
-.auth-erro {
-  color: var(--vermelho);
-  font-size: 0.875rem;
-  text-align: center;
-}
-
 .auth-link {
   text-align: center;
   margin-top: 1.5rem;
-  font-size: 0.875rem;
+  font-size: 0.9rem;
   color: var(--texto-secundario);
+  font-weight: 600;
 }
 
 .auth-link a {
-  color: var(--azul-principal);
-  font-weight: 500;
+  color: var(--primaria);
+  font-weight: 800;
   text-decoration: none;
 }
 

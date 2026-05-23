@@ -5,37 +5,42 @@
 }
 
 .fp-container h2 {
-  font-size: 1.75rem;
-  font-weight: 700;
+  font-size: 1.9rem;
+  font-weight: 900;
   margin-bottom: 0.25rem;
+  letter-spacing: -0.03em;
 }
 
 .fp-subtitulo {
   color: var(--texto-secundario);
   margin-bottom: 2rem;
+  font-weight: 600;
 }
 
 .fp-info {
   color: var(--texto-secundario);
   text-align: center;
   margin-top: 3rem;
+  font-weight: 700;
 }
 
-.fp-lista {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
+.fp-lista { display: flex; flex-direction: column; gap: 1rem; }
 
 .fp-card {
   background-color: var(--bg-card);
-  border: 1px solid var(--cinza-200);
-  border-radius: 12px;
-  padding: 1.25rem;
+  border: 2px solid var(--cinza-200);
+  border-radius: var(--radius);
+  padding: 1.35rem;
   box-shadow: var(--sombra);
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  transition: all 0.2s;
+}
+
+.fp-card:hover {
+  border-color: var(--secundaria);
+  box-shadow: var(--sombra-hover);
 }
 
 .fp-card-topo {
@@ -45,14 +50,15 @@
 }
 
 .fp-data {
-  font-weight: 600;
-  font-size: 1rem;
+  font-weight: 800;
+  font-size: 1.05rem;
 }
 
 .fp-local {
   font-size: 0.875rem;
   color: var(--texto-secundario);
   margin-top: 0.2rem;
+  font-weight: 600;
 }
 
 .fp-remuneracao {
@@ -65,22 +71,22 @@
 .fp-remuneracao span {
   font-size: 0.75rem;
   color: var(--texto-secundario);
+  font-weight: 700;
 }
 
 .fp-remuneracao strong {
-  font-size: 1.2rem;
+  font-size: 1.3rem;
   color: var(--verde);
+  font-weight: 900;
 }
 
 .fp-label {
-  font-size: 0.8rem;
-  color: var(--texto-secundario);
+  font-size: 0.72rem;
+  color: var(--secundaria);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
   margin-bottom: 0.4rem;
-  font-weight: 500;
 }
 
-.fp-tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-}
+.fp-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
