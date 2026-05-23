@@ -1,0 +1,70 @@
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 2rem;
+  height: 64px;
+  background-color: var(--bg-card);
+  border-bottom: 1px solid var(--cinza-200);
+  box-shadow: var(--sombra);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.navbar-logo a {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--azul-principal);
+  text-decoration: none;
+}
+
+.navbar-acoes {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.navbar-link {
+  color: var(--texto-secundario);
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+.navbar-link:hover {
+  color: var(--azul-principal);
+}
+
+.btn-tema {
+  background: none;
+  border: 1px solid var(--cinza-200);
+  border-radius: 8px;
+  padding: 0.35rem 0.6rem;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.2s;
+}
+
+.btn-tema:hover {
+  background-color: var(--cinza-200);
+}
+
+.btn-logout {
+  padding: 0.4rem 1rem;
+  background-color: transparent;
+  color: var(--vermelho);
+  border: 1px solid var(--vermelho);
+  border-radius: 8px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-family: 'Poppins', sans-serif;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-logout:hover {
+  background-color: var(--vermelho);
+  color: #fff;
+}
