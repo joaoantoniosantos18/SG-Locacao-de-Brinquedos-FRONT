@@ -3,7 +3,6 @@ import Navbar from '../components/Navbar'
 import AdminAgendamentos from './AdminAgendamentos'
 import AdminBrinquedos from './AdminBrinquedos'
 import AdminFuncionarios from './AdminFuncionarios'
-import '../styles/AdminPainel.css'
 
 function AdminPainel() {
   const [aba, setAba] = useState('agendamentos')
@@ -11,36 +10,32 @@ function AdminPainel() {
   return (
     <>
       <Navbar />
-      <main className="ap-container">
-        <h2>Painel Administrativo</h2>
+      <div className="container py-4" style={{ maxWidth: 1100 }}>
+        <h2 className="fw-black mb-4" style={{ letterSpacing: '-0.03em' }}>Painel Administrativo ⚙️</h2>
 
-        <div className="ap-abas">
-          <button
-            className={`ap-aba ${aba === 'agendamentos' ? 'ativa' : ''}`}
-            onClick={() => setAba('agendamentos')}
-          >
-            Agendamentos
-          </button>
-          <button
-            className={`ap-aba ${aba === 'brinquedos' ? 'ativa' : ''}`}
-            onClick={() => setAba('brinquedos')}
-          >
-            Brinquedos
-          </button>
-          <button
-            className={`ap-aba ${aba === 'funcionarios' ? 'ativa' : ''}`}
-            onClick={() => setAba('funcionarios')}
-          >
-            Funcionários
-          </button>
+        <div className="d-flex gap-2 mb-4 p-1 rounded-pill w-auto d-inline-flex"
+          style={{ background: 'var(--bg-card)', border: '2px solid var(--cinza-200)' }}>
+          {['agendamentos', 'brinquedos', 'funcionarios'].map(a => (
+            <button key={a} onClick={() => setAba(a)}
+              className="btn fw-bold px-4 py-2"
+              style={{
+                borderRadius: 30,
+                border: 'none',
+                background: aba === a ? 'linear-gradient(135deg, var(--secundaria), #7B2FBE)' : 'transparent',
+                color: aba === a ? '#fff' : 'var(--texto-secundario)',
+                boxShadow: aba === a ? '0 4px 12px rgba(155,93,229,0.35)' : 'none',
+                transition: 'all 0.2s',
+                textTransform: 'capitalize'
+              }}>
+              {a === 'agendamentos' ? '📋 Agendamentos' : a === 'brinquedos' ? '🎪 Brinquedos' : '👥 Funcionários'}
+            </button>
+          ))}
         </div>
 
-        <div className="ap-conteudo">
-          {aba === 'agendamentos' && <AdminAgendamentos />}
-          {aba === 'brinquedos' && <AdminBrinquedos />}
-          {aba === 'funcionarios' && <AdminFuncionarios />}
-        </div>
-      </main>
+        {aba === 'agendamentos' && <AdminAgendamentos />}
+        {aba === 'brinquedos'   && <AdminBrinquedos />}
+        {aba === 'funcionarios' && <AdminFuncionarios />}
+      </div>
     </>
   )
 }

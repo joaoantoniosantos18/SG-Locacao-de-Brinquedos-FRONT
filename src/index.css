@@ -1,153 +1,96 @@
-@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap');
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-:root {
-  --primaria:         #FF6B35;
-  --primaria-escura:  #E85520;
-  --secundaria:       #9B5DE5;
-  --amarelo:          #FFD23F;
-  --verde:            #06D6A0;
-  --rosa:             #FF6B9D;
-  --azul:             #4CC9F0;
-
-  --bg-principal:     #FFFBF5;
-  --bg-secundario:    #FFF3E0;
-  --bg-card:          #FFFFFF;
-
-  --texto-principal:  #2D1B69;
-  --texto-secundario: #7B6B9A;
-  --cinza-200:        #EDE0FF;
-
-  --verde-claro:      #CCFBEF;
-  --amarelo-claro:    #FFF8D6;
-  --vermelho:         #FF4757;
-
-  --sombra:           0 4px 20px rgba(155, 93, 229, 0.12);
-  --sombra-hover:     0 8px 30px rgba(155, 93, 229, 0.22);
-
-  --radius:           18px;
-  --radius-sm:        12px;
-}
-
-[data-tema="escuro"] {
-  --bg-principal:     #1A1035;
-  --bg-secundario:    #120B28;
-  --bg-card:          #241748;
-
-  --texto-principal:  #F0E6FF;
-  --texto-secundario: #A990D4;
-  --cinza-200:        #3A2660;
-
-  --verde-claro:      #064E3B;
-  --amarelo-claro:    #451A03;
-  --vermelho:         #FF6B7A;
-
-  --sombra:           0 4px 20px rgba(0,0,0,0.4);
-  --sombra-hover:     0 8px 30px rgba(0,0,0,0.5);
-}
+* { box-sizing: border-box; }
 
 body {
-  font-family: 'Nunito', sans-serif;
+  font-family: 'Nunito', sans-serif !important;
   background-color: var(--bg-secundario);
   color: var(--texto-principal);
   transition: background-color 0.2s, color 0.2s;
 }
 
-/* Campos reutilizáveis */
-.campo {
-  display: flex;
-  flex-direction: column;
-  gap: 0.4rem;
+:root {
+  --primaria:        #FF6B35;
+  --secundaria:      #9B5DE5;
+  --amarelo:         #FFD23F;
+  --verde:           #06D6A0;
+  --rosa:            #FF6B9D;
+
+  --bg-principal:    #FFFBF5;
+  --bg-secundario:   #FFF3E0;
+  --bg-card:         #FFFFFF;
+
+  --texto-principal:  #2D1B69;
+  --texto-secundario: #7B6B9A;
+  --cinza-200:        #EDE0FF;
+  --vermelho:         #FF4757;
+  --verde-claro:      #CCFBEF;
+  --amarelo-claro:    #FFF8D6;
 }
 
-.campo label {
-  font-size: 0.875rem;
+[data-tema="escuro"] {
+  --bg-principal:    #1A1035;
+  --bg-secundario:   #120B28;
+  --bg-card:         #241748;
+  --texto-principal:  #F0E6FF;
+  --texto-secundario: #A990D4;
+  --cinza-200:        #3A2660;
+  --vermelho:         #FF6B7A;
+  --verde-claro:      #064E3B;
+  --amarelo-claro:    #451A03;
+}
+
+/* Overrides Bootstrap para tema */
+.card, .modal-content, .dropdown-menu {
+  background-color: var(--bg-card) !important;
+  border-color: var(--cinza-200) !important;
+  color: var(--texto-principal) !important;
+}
+
+.form-control, .form-select {
+  background-color: var(--bg-secundario) !important;
+  border-color: var(--cinza-200) !important;
+  color: var(--texto-principal) !important;
+  font-family: 'Nunito', sans-serif !important;
+  font-weight: 600;
+}
+
+.form-control:focus, .form-select:focus {
+  border-color: var(--secundaria) !important;
+  box-shadow: 0 0 0 3px rgba(155,93,229,0.2) !important;
+  background-color: var(--bg-secundario) !important;
+  color: var(--texto-principal) !important;
+}
+
+.form-label {
   font-weight: 700;
   color: var(--texto-principal);
 }
 
-.campo input,
-.campo select {
-  padding: 0.7rem 1rem;
-  border: 2px solid var(--cinza-200);
-  border-radius: var(--radius-sm);
-  background-color: var(--bg-secundario);
-  color: var(--texto-principal);
-  font-family: 'Nunito', sans-serif;
-  font-size: 0.95rem;
-  font-weight: 600;
-  outline: none;
-  transition: border-color 0.2s, box-shadow 0.2s;
-}
-
-.campo input:focus,
-.campo select:focus {
-  border-color: var(--secundaria);
-  box-shadow: 0 0 0 3px rgba(155, 93, 229, 0.15);
-}
-
-/* Botão principal */
-.btn-primary {
-  padding: 0.8rem 1.5rem;
+/* Botão principal customizado */
+.btn-festa {
   background: linear-gradient(135deg, var(--primaria), var(--rosa));
-  color: #fff;
-  border: none;
-  border-radius: var(--radius-sm);
-  font-size: 1rem;
+  color: #fff !important;
   font-weight: 800;
-  font-family: 'Nunito', sans-serif;
-  cursor: pointer;
+  border: none;
+  border-radius: 30px;
   transition: all 0.2s;
-  box-shadow: 0 4px 15px rgba(255, 107, 53, 0.35);
-  letter-spacing: 0.02em;
+  box-shadow: 0 4px 15px rgba(255,107,53,0.35);
 }
 
-.btn-primary:hover {
+.btn-festa:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(255, 107, 53, 0.45);
+  box-shadow: 0 6px 20px rgba(255,107,53,0.45);
+  color: #fff !important;
 }
 
-.btn-primary:disabled {
+.btn-festa:disabled {
   opacity: 0.6;
-  cursor: not-allowed;
   transform: none;
 }
 
-/* Badges */
-.badge {
-  padding: 0.3rem 0.85rem;
-  border-radius: 30px;
-  font-size: 0.75rem;
-  font-weight: 800;
-  letter-spacing: 0.03em;
-}
-
-.badge-amarelo {
-  background-color: var(--amarelo-claro);
-  color: #92400e;
-}
-
-.badge-verde {
-  background-color: var(--verde-claro);
-  color: #065f46;
-}
-
-.badge-vermelho {
-  background-color: #FFE4E6;
-  color: #9f1239;
-}
-
-[data-tema="escuro"] .badge-amarelo { color: #fcd34d; }
-[data-tema="escuro"] .badge-verde   { color: #6ee7b7; }
-[data-tema="escuro"] .badge-vermelho{ color: #fca5a5; }
-
 /* Toast */
-.toast {
+.toast-custom {
   position: fixed;
   bottom: 2rem;
   left: 50%;
@@ -157,9 +100,10 @@ body {
   padding: 0.85rem 2rem;
   border-radius: 30px;
   font-weight: 800;
-  z-index: 999;
-  box-shadow: 0 6px 25px rgba(6, 214, 160, 0.4);
+  z-index: 9999;
+  box-shadow: 0 6px 25px rgba(6,214,160,0.4);
   animation: fadeInUp 0.3s ease;
+  white-space: nowrap;
 }
 
 @keyframes fadeInUp {
@@ -167,11 +111,42 @@ body {
   to   { opacity: 1; transform: translateX(-50%) translateY(0); }
 }
 
-.campo-full { grid-column: 1 / -1; }
+/* Badges status */
+.badge-pendente  { background-color: var(--amarelo-claro) !important; color: #92400e !important; }
+.badge-confirmado{ background-color: var(--verde-claro) !important;   color: #065f46 !important; }
+.badge-recusado  { background-color: #FFE4E6 !important;              color: #9f1239 !important; }
 
-.auth-erro {
-  color: var(--vermelho);
-  font-size: 0.875rem;
-  text-align: center;
-  font-weight: 700;
+[data-tema="escuro"] .badge-pendente  { color: #fcd34d !important; }
+[data-tema="escuro"] .badge-confirmado{ color: #6ee7b7 !important; }
+[data-tema="escuro"] .badge-recusado  { color: #fca5a5 !important; }
+
+/* Cards com hover */
+.card-hover {
+  transition: transform 0.2s, box-shadow 0.2s !important;
+  border: 2px solid var(--cinza-200) !important;
 }
+
+.card-hover:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 30px rgba(155,93,229,0.2) !important;
+  border-color: var(--secundaria) !important;
+}
+
+/* Tag de item */
+.item-tag {
+  background-color: var(--bg-secundario);
+  border: 2px solid var(--cinza-200);
+  border-radius: 20px;
+  padding: 0.25rem 0.85rem;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--texto-principal);
+  display: inline-block;
+}
+
+.text-secundario { color: var(--texto-secundario) !important; }
+.text-primaria   { color: var(--primaria) !important; }
+.text-secundaria { color: var(--secundaria) !important; }
+.bg-card         { background-color: var(--bg-card) !important; }
+.bg-secundario   { background-color: var(--bg-secundario) !important; }
+.border-tema     { border-color: var(--cinza-200) !important; }

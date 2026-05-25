@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react'
 import Navbar from '../components/Navbar'
 import api from '../services/api'
 import { useAuth } from '../context/AuthContext'
-import '../styles/FuncionarioPainel.css'
 
 function FuncionarioPainel() {
   const [eventos, setEventos] = useState([])
@@ -18,53 +17,51 @@ function FuncionarioPainel() {
   return (
     <>
       <Navbar />
-      <main className="fp-container">
-        <h2>Olá, {usuario?.nome}!</h2>
-        <p className="fp-subtitulo">Estes são os eventos em que você está escalado</p>
+      <div className="container py-4" style={{ maxWidth: 800 }}>
+        <h2 className="fw-black mb-1" style={{ letterSpacing: '-0.03em' }}>Olá, {usuario?.nome}! 👋</h2>
+        <p className="text-secundario fw-bold mb-4">Estes são os eventos em que você está escalado</p>
 
         {carregando ? (
-          <p className="fp-info">Carregando...</p>
+          <div className="text-center py-5"><div className="spinner-border" style={{ color: 'var(--secundaria)' }} /></div>
         ) : eventos.length === 0 ? (
-          <p className="fp-info">Você não está escalado em nenhum evento no momento.</p>
+          <p className="text-center text-secundario fw-bold py-5">Você não está escalado em nenhum evento no momento.</p>
         ) : (
-          <div className="fp-lista">
+          <div className="d-flex flex-column gap-3">
             {eventos.map(ev => {
               const minhaEntrada = ev.equipe.find(e => e.funcionario?._id === usuario?.id || e.funcionario === usuario?.id)
               return (
-                <div key={ev._id} className="fp-card">
-                  <div className="fp-card-topo">
+                <div key={ev._id} className="card card-hover p-3" style={{ borderRadius: 18 }}>
+                  <div className="d-flex justify-content-between align-items-start mb-3">
                     <div>
-                      <p className="fp-data">
+                      <p className="fw-black fs-5 mb-0">
                         {new Date(ev.dataEvento).toLocaleDateString('pt-BR', { timeZone: 'UTC' })} às {ev.horaInicio}
                       </p>
-                      <p className="fp-local">{ev.localEvento}</p>
+                      <p className="text-secundario fw-bold small mb-0">{ev.localEvento}</p>
                     </div>
                     {minhaEntrada && (
-                      <div className="fp-remuneracao">
-                        <span>Sua remuneração</span>
-                        <strong>R$ {Number(minhaEntrada.remuneracao).toFixed(2)}</strong>
+                      <div className="text-end">
+                        <div className="text-secundario small fw-bold">Sua remuneração</div>
+                        <div className="fw-black fs-4" style={{ color: 'var(--verde)' }}>
+                          R$ {Number(minhaEntrada.remuneracao).toFixed(2)}
+                        </div>
                       </div>
                     )}
                   </div>
 
-                  <div className="fp-brinquedos">
-                    <p className="fp-label">Brinquedos do evento:</p>
-                    <div className="fp-tags">
+                  <div className="mb-2">
+                    <p className="fw-black small text-uppercase mb-1" style={{ color: 'var(--secundaria)', letterSpacing: '0.07em' }}>Brinquedos</p>
+                    <div className="d-flex flex-wrap gap-2">
                       {ev.itens.map((item, i) => (
-                        <span key={i} className="ma-item-tag">
-                          {item.brinquedo?.nome} x{item.quantidade}
-                        </span>
+                        <span key={i} className="item-tag">{item.brinquedo?.nome} x{item.quantidade}</span>
                       ))}
                     </div>
                   </div>
 
-                  <div className="fp-equipe">
-                    <p className="fp-label">Equipe escalada:</p>
-                    <div className="fp-tags">
+                  <div>
+                    <p className="fw-black small text-uppercase mb-1" style={{ color: 'var(--secundaria)', letterSpacing: '0.07em' }}>Equipe</p>
+                    <div className="d-flex flex-wrap gap-2">
                       {ev.equipe.map((e, i) => (
-                        <span key={i} className="ma-item-tag">
-                          {e.funcionario?.nome}
-                        </span>
+                        <span key={i} className="item-tag">{e.funcionario?.nome}</span>
                       ))}
                     </div>
                   </div>
@@ -73,7 +70,7 @@ function FuncionarioPainel() {
             })}
           </div>
         )}
-      </main>
+      </div>
     </>
   )
 }

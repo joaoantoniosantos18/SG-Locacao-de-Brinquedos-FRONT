@@ -2,12 +2,11 @@ import { useEffect, useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import Navbar from '../components/Navbar'
 import api from '../services/api'
-import '../styles/MeusAgendamentos.css'
 
-const STATUS_LABEL = {
-  pendente: { texto: 'Pendente', classe: 'badge-amarelo' },
-  confirmado: { texto: 'Confirmado', classe: 'badge-verde' },
-  recusado: { texto: 'Recusado', classe: 'badge-vermelho' }
+const STATUS = {
+  pendente:   { texto: 'Pendente',   classe: 'badge-pendente' },
+  confirmado: { texto: 'Confirmado', classe: 'badge-confirmado' },
+  recusado:   { texto: 'Recusado',   classe: 'badge-recusado' }
 }
 
 function MeusAgendamentos() {
@@ -29,41 +28,41 @@ function MeusAgendamentos() {
   return (
     <>
       <Navbar />
-      {toast && <div className="toast">{toast}</div>}
-      <main className="ma-container">
-        <h2>Meus Agendamentos</h2>
+      {toast && <div className="toast-custom">{toast}</div>}
+      <div className="container py-4" style={{ maxWidth: 800 }}>
+        <h2 className="fw-black mb-4" style={{ letterSpacing: '-0.03em' }}>Meus Agendamentos 📋</h2>
 
         {carregando ? (
-          <p className="ma-info">Carregando...</p>
+          <div className="text-center py-5"><div className="spinner-border" style={{ color: 'var(--secundaria)' }} /></div>
         ) : agendamentos.length === 0 ? (
-          <p className="ma-info">Você ainda não fez nenhum agendamento.</p>
+          <p className="text-center text-secundario fw-bold py-5">Você ainda não fez nenhum agendamento.</p>
         ) : (
-          <div className="ma-lista">
+          <div className="d-flex flex-column gap-3">
             {agendamentos.map(ag => (
-              <div key={ag._id} className="ma-card">
-                <div className="ma-card-topo">
+              <div key={ag._id} className="card card-hover p-3" style={{ borderRadius: 18 }}>
+                <div className="d-flex justify-content-between align-items-start mb-2">
                   <div>
-                    <p className="ma-data">
+                    <p className="fw-black mb-0 fs-5">
                       {new Date(ag.dataEvento).toLocaleDateString('pt-BR', { timeZone: 'UTC' })} às {ag.horaInicio}
                     </p>
-                    <p className="ma-local">{ag.localEvento}</p>
+                    <p className="text-secundario fw-bold small mb-0">{ag.localEvento}</p>
                   </div>
-                  <span className={`badge ${STATUS_LABEL[ag.status].classe}`}>
-                    {STATUS_LABEL[ag.status].texto}
+                  <span className={`badge rounded-pill fs-6 ${STATUS[ag.status].classe}`}>
+                    {STATUS[ag.status].texto}
                   </span>
                 </div>
 
-                <div className="ma-itens">
+                <div className="d-flex flex-wrap gap-2 my-2">
                   {ag.itens.map((item, i) => (
-                    <span key={i} className="ma-item-tag">
-                      {item.brinquedo?.nome} x{item.quantidade}
-                    </span>
+                    <span key={i} className="item-tag">{item.brinquedo?.nome} x{item.quantidade}</span>
                   ))}
                 </div>
 
-                <div className="ma-rodape">
-                  <span>Total: <strong>R$ {Number(ag.valorTotal).toFixed(2)}</strong></span>
-                  <span className="ma-criado">
+                <div className="d-flex justify-content-between pt-2 border-top border-tema">
+                  <span className="text-secundario fw-bold small">
+                    Total: <strong style={{ color: 'var(--primaria)' }}>R$ {Number(ag.valorTotal).toFixed(2)}</strong>
+                  </span>
+                  <span className="text-secundario small">
                     Criado em {new Date(ag.createdAt).toLocaleDateString('pt-BR')}
                   </span>
                 </div>
@@ -71,7 +70,7 @@ function MeusAgendamentos() {
             ))}
           </div>
         )}
-      </main>
+      </div>
     </>
   )
 }
