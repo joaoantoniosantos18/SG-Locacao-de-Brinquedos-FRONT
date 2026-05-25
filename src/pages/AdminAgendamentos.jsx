@@ -40,16 +40,25 @@ function AdminAgendamentos() {
   const mostrarToast = (msg) => { setToast(msg); setTimeout(() => setToast(''), 3500) }
 
   const atualizarStatus = async (id, status) => {
-    try {
-      const equipe = (equipeForm[id] || []).filter(e => e.funcionario && e.remuneracao)
-      const res = await api.put(`/agendamentos/${id}/status`, { status, equipe })
-      setAgendamentos(agendamentos.map(a => a._id === id ? res.data : a))
-      mostrarToast(`Status atualizado para "${STATUS[status].texto}"`)
-      setAberto(null)
-    } catch (err) {
-      mostrarToast(err.response?.data?.mensagem || 'Erro ao atualizar')
+  // Se estiver confirmando, valida se tem pelo menos um funcionário escalado
+  if (status === 'confirmado') {
+    const equipe = (equipeForm[id] || []).filter(e => e.funcionario && e.remuneracao)
+    if (equipe.length === 0) {
+      mostrarToast('⚠️ Escale pelo menos um funcionário antes de confirmar')
+      return
     }
   }
+
+  try {
+    const equipe = (equipeForm[id] || []).filter(e => e.funcionario && e.remuneracao)
+    const res = await api.put(`/agendamentos/${id}/status`, { status, equipe })
+    setAgendamentos(agendamentos.map(a => a._id === id ? res.data : a))
+    mostrarToast(`Status atualizado para "${STATUS[status].texto}"`)
+    setAberto(null)
+  } catch (err) {
+    mostrarToast(err.response?.data?.mensagem || 'Erro ao atualizar')
+  }
+}
 
   const adicionarFuncionario = (agId) => {
     const atual = equipeForm[agId] || []
