@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import api from '../services/api'
 import '../styles/AdminFuncionarios.css'
+import { mascaraTelefone } from '../utils/mascara'
 
 function AdminFuncionarios() {
   const [funcionarios, setFuncionarios] = useState([])
@@ -48,7 +49,10 @@ function AdminFuncionarios() {
           </div>
           <div className="campo">
             <label>Telefone</label>
-            <input value={form.telefone} onChange={e => setForm({ ...form, telefone: e.target.value })} />
+            <input
+              value={form.telefone}
+              onChange={e => setForm({ ...form, telefone: mascaraTelefone(e.target.value) })}
+            />
           </div>
           <div className="campo">
             <label>Senha inicial</label>

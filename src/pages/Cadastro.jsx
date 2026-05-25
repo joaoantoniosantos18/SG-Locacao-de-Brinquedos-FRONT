@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
 import '../styles/Login.css'
+import { mascaraTelefone } from '../utils/mascara'
 
 function Cadastro() {
   const [form, setForm] = useState({ nome: '', email: '', senha: '', telefone: '' })
@@ -65,7 +66,7 @@ function Cadastro() {
             <input
               name="telefone"
               value={form.telefone}
-              onChange={handleChange}
+              onChange={e => setForm({ ...form, telefone: mascaraTelefone(e.target.value) })}
               placeholder="(85) 99999-9999"
             />
           </div>
