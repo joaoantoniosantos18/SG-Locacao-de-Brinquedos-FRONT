@@ -3,6 +3,7 @@ import Navbar from '../components/Navbar'
 import AdminAgendamentos from './AdminAgendamentos'
 import AdminBrinquedos from './AdminBrinquedos'
 import AdminFuncionarios from './AdminFuncionarios'
+import AdminFinanceiro from './AdminFinanceiro'
 
 function AdminPainel() {
   const [aba, setAba] = useState('agendamentos')
@@ -19,7 +20,8 @@ function AdminPainel() {
             {[
               { key: 'agendamentos', label: '📋 Agendamentos' },
               { key: 'brinquedos',   label: '🎪 Brinquedos' },
-              { key: 'funcionarios', label: '👥 Funcionários' }
+              { key: 'funcionarios', label: '👥 Funcionários' },
+              { key: 'financeiro',   label: '💰 Financeiro' }
             ].map(a => (
               <button key={a.key} onClick={() => setAba(a.key)}
                 className="btn fw-bold px-3 py-2"
@@ -42,6 +44,7 @@ function AdminPainel() {
         {aba === 'agendamentos' && <AdminAgendamentos />}
         {aba === 'brinquedos'   && <AdminBrinquedos />}
         {aba === 'funcionarios' && <AdminFuncionarios />}
+        {aba === 'financeiro' && <AdminFinanceiro />}
       </div>
     </>
   )
