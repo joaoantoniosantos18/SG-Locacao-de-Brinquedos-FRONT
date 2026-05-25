@@ -150,3 +150,23 @@ body {
 .bg-card         { background-color: var(--bg-card) !important; }
 .bg-secundario   { background-color: var(--bg-secundario) !important; }
 .border-tema     { border-color: var(--cinza-200) !important; }
+
+@media (max-width: 576px) {
+  .container { padding-left: 1rem !important; padding-right: 1rem !important; }
+
+  /* Stats em 2 colunas no mobile já estão ok com col-6, mas ajusta o número */
+  .aa-stat span { font-size: 1.8rem; }
+
+  /* Linha dos agendamentos empilha no mobile */
+  .aa-linha-info { flex-direction: column; align-items: flex-start !important; gap: 0.25rem !important; }
+
+  /* Formulários ocupam coluna inteira no mobile */
+  .row > [class*="col-md"] { width: 100% !important; }
+
+  /* Itens de brinquedo e funcionário empilham */
+  .card.p-3.d-flex.flex-row { flex-direction: column !important; align-items: flex-start !important; }
+  .ab-item-acoes, .af-item-acoes { width: 100%; justify-content: flex-end; }
+
+  /* Resumo do agendamento */
+  .ag-resumo { flex-direction: column; text-align: center; gap: 0.5rem; }
+}
