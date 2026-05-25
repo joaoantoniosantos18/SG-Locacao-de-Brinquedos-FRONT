@@ -1,36 +1,47 @@
 import { useEffect, useState } from 'react'
 import api from '../services/api'
+import Toast from '../components/Toast'
 import { mascaraTelefone } from '../utils/mascara'
 
 function AdminFuncionarios() {
   const [funcionarios, setFuncionarios] = useState([])
   const [form, setForm] = useState({ nome: '', email: '', telefone: '', senha: '' })
-  const [toast, setToast] = useState('')
+  const [toast, setToast] = useState({ mensagem: '', tipo: 'sucesso' })
 
   useEffect(() => { carregar() }, [])
 
   const carregar = () => api.get('/funcionarios').then(res => setFuncionarios(res.data))
-  const mostrarToast = (msg) => { setToast(msg); setTimeout(() => setToast(''), 3500) }
+
+  const mostrarToast = (mensagem, tipo = 'sucesso') => {
+    setToast({ mensagem, tipo })
+    setTimeout(() => setToast({ mensagem: '', tipo: 'sucesso' }), 3500)
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault()
     try {
       await api.post('/funcionarios', form)
       setForm({ nome: '', email: '', telefone: '', senha: '' })
-      mostrarToast('Funcionário cadastrado! 🎉'); carregar()
+      mostrarToast('Funcionário cadastrado! 🎉')
+      carregar()
     } catch (err) {
-      mostrarToast(err.response?.data?.mensagem || 'Erro ao cadastrar')
+      mostrarToast(err.response?.data?.mensagem || 'Erro ao cadastrar', 'erro')
     }
   }
 
   const alternarAtivo = async (id) => {
-    await api.patch(`/funcionarios/${id}/ativo`)
-    mostrarToast('Status atualizado'); carregar()
+    try {
+      await api.patch(`/funcionarios/${id}/ativo`)
+      mostrarToast('Status atualizado')
+      carregar()
+    } catch (err) {
+      mostrarToast('Erro ao atualizar status', 'erro')
+    }
   }
 
   return (
     <div>
-      {toast && <div className="toast-custom">{toast}</div>}
+      <Toast mensagem={toast.mensagem} tipo={toast.tipo} />
 
       <div className="card p-4 mb-4 card-hover" style={{ borderRadius: 18 }}>
         <h5 className="fw-black mb-3" style={{ color: 'var(--secundaria)' }}>👥 Cadastrar Funcionário</h5>
@@ -38,20 +49,23 @@ function AdminFuncionarios() {
           <div className="row g-3">
             <div className="col-md-6">
               <label className="form-label">Nome</label>
-              <input className="form-control" value={form.nome} onChange={e => setForm({ ...form, nome: e.target.value })} required />
+              <input className="form-control" value={form.nome}
+                onChange={e => setForm({ ...form, nome: e.target.value })} required />
             </div>
             <div className="col-md-6">
               <label className="form-label">Email</label>
-              <input type="email" className="form-control" value={form.email} onChange={e => setForm({ ...form, email: e.target.value })} required />
+              <input type="email" className="form-control" value={form.email}
+                onChange={e => setForm({ ...form, email: e.target.value })} required />
             </div>
             <div className="col-md-6">
               <label className="form-label">Telefone</label>
-              <input className="form-control" placeholder="(85) 99999-9999"
-                value={form.telefone} onChange={e => setForm({ ...form, telefone: mascaraTelefone(e.target.value) })} />
+              <input className="form-control" placeholder="(85) 99999-9999" value={form.telefone}
+                onChange={e => setForm({ ...form, telefone: mascaraTelefone(e.target.value) })} />
             </div>
             <div className="col-md-6">
               <label className="form-label">Senha inicial</label>
-              <input type="password" className="form-control" value={form.senha} onChange={e => setForm({ ...form, senha: e.target.value })} required />
+              <input type="password" className="form-control" value={form.senha}
+                onChange={e => setForm({ ...form, senha: e.target.value })} required />
             </div>
           </div>
           <button type="submit" className="btn btn-festa px-4 mt-3">Cadastrar</button>

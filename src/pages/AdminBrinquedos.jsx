@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import api from '../services/api'
+import Toast from '../components/Toast'
 
 function AdminBrinquedos() {
   const [brinquedos, setBrinquedos] = useState([])
@@ -7,12 +8,17 @@ function AdminBrinquedos() {
   const [imagem, setImagem] = useState(null)
   const [preview, setPreview] = useState(null)
   const [editandoId, setEditandoId] = useState(null)
-  const [toast, setToast] = useState('')
+  const [confirmandoId, setConfirmandoId] = useState(null)
+  const [toast, setToast] = useState({ mensagem: '', tipo: 'sucesso' })
 
   useEffect(() => { carregar() }, [])
 
+  const mostrarToast = (mensagem, tipo = 'sucesso') => {
+    setToast({ mensagem, tipo })
+    setTimeout(() => setToast({ mensagem: '', tipo: 'sucesso' }), 3500)
+  }
+
   const carregar = () => api.get('/brinquedos/todos').then(res => setBrinquedos(res.data))
-  const mostrarToast = (msg) => { setToast(msg); setTimeout(() => setToast(''), 3500) }
 
   const handleImagem = (e) => {
     const file = e.target.files[0]
@@ -35,7 +41,7 @@ function AdminBrinquedos() {
       mostrarToast(editandoId ? 'Brinquedo atualizado! 🎉' : 'Brinquedo criado! 🎉')
       resetForm(); carregar()
     } catch (err) {
-      mostrarToast(err.response?.data?.mensagem || 'Erro ao salvar')
+      mostrarToast(err.response?.data?.mensagem || 'Erro ao salvar', 'erro')
     }
   }
 
@@ -47,14 +53,21 @@ function AdminBrinquedos() {
   }
 
   const deletar = async (id) => {
-    if (!window.confirm('Remover este brinquedo?')) return
+    if (confirmandoId !== id) {
+      setConfirmandoId(id)
+      mostrarToast('⚠️ Clique em remover novamente para confirmar', 'erro')
+      setTimeout(() => setConfirmandoId(null), 3500)
+      return
+    }
     await api.delete(`/brinquedos/${id}`)
-    mostrarToast('Brinquedo removido'); carregar()
+    setConfirmandoId(null)
+    mostrarToast('Brinquedo removido')
+    carregar()
   }
 
   return (
     <div>
-      {toast && <div className="toast-custom">{toast}</div>}
+      <Toast mensagem={toast.mensagem} tipo={toast.tipo} />
 
       <div className="card p-4 mb-4 card-hover" style={{ borderRadius: 18 }}>
         <h5 className="fw-black mb-3" style={{ color: 'var(--secundaria)' }}>
@@ -117,7 +130,11 @@ function AdminBrinquedos() {
             </div>
             <div className="d-flex gap-2">
               <button className="btn btn-outline-secondary fw-bold rounded-pill btn-sm px-3" onClick={() => editar(b)}>Editar</button>
-              <button className="btn btn-outline-danger fw-bold rounded-pill btn-sm px-3" onClick={() => deletar(b._id)}>Remover</button>
+              <button
+                className={`btn fw-bold rounded-pill btn-sm px-3 ${confirmandoId === b._id ? 'btn-danger' : 'btn-outline-danger'}`}
+                onClick={() => deletar(b._id)}>
+                {confirmandoId === b._id ? 'Confirmar?' : 'Remover'}
+              </button>
             </div>
           </div>
         ))}

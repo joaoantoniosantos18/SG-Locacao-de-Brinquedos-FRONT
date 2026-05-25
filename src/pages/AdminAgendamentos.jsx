@@ -1,5 +1,6 @@
 import { useEffect, useState, useMemo } from 'react'
 import api from '../services/api'
+import Toast from '../components/Toast'
 
 const STATUS = {
   pendente:   { texto: 'Pendente',   classe: 'badge-pendente' },
@@ -23,7 +24,11 @@ function AdminAgendamentos() {
   const [agendamentos, setAgendamentos] = useState([])
   const [funcionarios, setFuncionarios] = useState([])
   const [aberto, setAberto] = useState(null)
-  const [toast, setToast] = useState('')
+  const [toast, setToast] = useState({ mensagem: '', tipo: 'sucesso' })
+  const mostrarToast = (mensagem, tipo = 'sucesso') => {
+    setToast({ mensagem, tipo })
+    setTimeout(() => setToast({ mensagem: '', tipo: 'sucesso' }), 3500)
+  }
   const [equipeForm, setEquipeForm] = useState({})
 
   // Filtros
@@ -37,28 +42,26 @@ function AdminAgendamentos() {
     api.get('/funcionarios').then(res => setFuncionarios(res.data))
   }, [])
 
-  const mostrarToast = (msg) => { setToast(msg); setTimeout(() => setToast(''), 3500) }
 
   const atualizarStatus = async (id, status) => {
-  // Se estiver confirmando, valida se tem pelo menos um funcionário escalado
-  if (status === 'confirmado') {
-    const equipe = (equipeForm[id] || []).filter(e => e.funcionario && e.remuneracao)
-    if (equipe.length === 0) {
-      mostrarToast('⚠️ Escale pelo menos um funcionário antes de confirmar')
-      return
+    if (status === 'confirmado') {
+      const equipe = (equipeForm[id] || []).filter(e => e.funcionario && e.remuneracao)
+      if (equipe.length === 0) {
+        mostrarToast('⚠️ Escale pelo menos um funcionário antes de confirmar', 'erro')
+        return
+      }
+    }
+
+    try {
+      const equipe = (equipeForm[id] || []).filter(e => e.funcionario && e.remuneracao)
+      const res = await api.put(`/agendamentos/${id}/status`, { status, equipe })
+      setAgendamentos(agendamentos.map(a => a._id === id ? res.data : a))
+      mostrarToast(`Status atualizado para "${STATUS[status].texto}"`)
+      setAberto(null)
+    } catch (err) {
+      mostrarToast(err.response?.data?.mensagem || 'Erro ao atualizar', 'erro')
     }
   }
-
-  try {
-    const equipe = (equipeForm[id] || []).filter(e => e.funcionario && e.remuneracao)
-    const res = await api.put(`/agendamentos/${id}/status`, { status, equipe })
-    setAgendamentos(agendamentos.map(a => a._id === id ? res.data : a))
-    mostrarToast(`Status atualizado para "${STATUS[status].texto}"`)
-    setAberto(null)
-  } catch (err) {
-    mostrarToast(err.response?.data?.mensagem || 'Erro ao atualizar')
-  }
-}
 
   const adicionarFuncionario = (agId) => {
     const atual = equipeForm[agId] || []
@@ -127,8 +130,7 @@ function AdminAgendamentos() {
 
   return (
     <div>
-      {toast && <div className="toast-custom">{toast}</div>}
-
+      <Toast mensagem={toast.mensagem} tipo={toast.tipo} />
       {/* Painel de filtros */}
       <div className="card p-3 mb-4" style={{ borderRadius: 18, border: '2px solid var(--cinza-200)' }}>
         <div className="d-flex flex-wrap align-items-end gap-3">
